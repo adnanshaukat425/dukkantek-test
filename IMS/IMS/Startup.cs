@@ -36,6 +36,7 @@ namespace IMS
             });
             services.AddDbContext<ApplicationSQLDBContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("Models")));
+            ServiceProvider serviceProvider = new ServiceProvider(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
