@@ -1,4 +1,6 @@
 ﻿using IMS.GenericRepositories.Interfaces;
+using Microsoft.Extensions.Configuration;
+using Models.SQL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,34 +11,41 @@ namespace IMS.GenericRepositories.Implementations
 {
     public class Repository<T> : RepositoryReadOnly<T>, IRepository<T> where T : class
     {
+        private readonly ApplicationSQLDBContext _dbContext;
+
+        public Repository(ApplicationSQLDBContext dbContext, IConfiguration configuration) : base(dbContext, configuration)
+        {
+            _dbContext = dbContext;
+        }
         public void Delete(T model)
         {
-            throw new NotImplementedException();
+            _dbContext.Set<T>().Remove(model);
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            T entity = _dbContext.Set<T>().Find(id);
+            _dbContext.Set<T>().Remove(entity);
         }
 
         public void Insert(T model)
         {
-            throw new NotImplementedException();
+            _dbContext.Set<T>().Add(model);
         }
 
         public void Insert(IEnumerable<T> models)
         {
-            throw new NotImplementedException();
+            _dbContext.Set<T>().AddRange(models);
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            _dbContext.SaveChanges();
         }
 
-        public Task SaveAsync()
+        public async Task SaveAsync()
         {
-            throw new NotImplementedException();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }
