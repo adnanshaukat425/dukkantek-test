@@ -3,6 +3,7 @@ using IMS.Repositories.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Models.Models;
 using Models.SQL;
+using System.Linq;
 
 namespace IMS.Repositories.Implementations
 {
@@ -15,5 +16,9 @@ namespace IMS.Repositories.Implementations
             _dbContext = dbContext;
         }
 
+        public Status GetStatusByName(string name)
+        {
+            return _dbContext.Statuses.Where(x => x.Name.Equals(name)).FirstOrDefault();
+        }
     }
 }
