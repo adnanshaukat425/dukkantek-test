@@ -1,4 +1,5 @@
 ﻿using IMS.GenericRepositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Models.SQL;
 using System;
@@ -17,33 +18,39 @@ namespace IMS.GenericRepositories.Implementations
         {
             _dbContext = dbContext;
         }
-        public void Delete(T model)
+        public virtual void Delete(T model)
         {
             _dbContext.Set<T>().Remove(model);
         }
 
-        public void Delete(int id)
+        public virtual void Delete(int id)
         {
             T entity = _dbContext.Set<T>().Find(id);
             _dbContext.Set<T>().Remove(entity);
         }
 
-        public void Insert(T model)
+        public virtual void Insert(T model)
         {
             _dbContext.Set<T>().Add(model);
         }
 
-        public void Insert(IEnumerable<T> models)
+        public virtual void Insert(IEnumerable<T> models)
         {
             _dbContext.Set<T>().AddRange(models);
         }
 
-        public void Save()
+        public virtual void Update(T model)
+        {
+            _dbContext.Set<T>().Attach(model);
+            _dbContext.Entry(model).State = EntityState.Modified;
+        }
+
+        public virtual void Save()
         {
             _dbContext.SaveChanges();
         }
 
-        public async Task SaveAsync()
+        public virtual async Task SaveAsync()
         {
             await _dbContext.SaveChangesAsync();
         }

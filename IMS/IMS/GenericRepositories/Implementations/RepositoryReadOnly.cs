@@ -19,17 +19,17 @@ namespace IMS.GenericRepositories.Implementations
             _configuration = configuration;
         }
 
-        public async Task<T> GetById(int id)
+        public virtual async Task<T> GetById(int id)
         {
             return await _dbContext.Set<T>().FindAsync(id);
         }
 
-        public IQueryable<T> Get(Expression<Func<T, bool>> filter = null)
+        public virtual IQueryable<T> Get(Expression<Func<T, bool>> filter = null)
         {
             return _dbContext.Set<T>().Where(filter);
         }
 
-        public IQueryable<T> GetAll()
+        public virtual IQueryable<T> GetAll()
         {
             return _dbContext.Set<T>().AsQueryable();
         }

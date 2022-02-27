@@ -1,23 +1,66 @@
-﻿using IMS.Services.Interfaces;
+﻿using IMS.Mappers;
+using IMS.Repositories.Interfaces;
+using IMS.Services.Interfaces;
 using Models.Models;
+using System.Linq;
+using System.Threading.Tasks;
+using ViewModels.ViewModels;
 
 namespace IMS.Services.Implementations
 {
     public class ProductService : IProductService
     {
-        public bool ChangeStatusAsync(Product product, Status status)
+        private readonly IProductRespository _productRespository;
+        private readonly IStatusRepository _statusRepository;
+        public ProductService(IProductRespository productRespository, IStatusRepository statusRepository)
         {
-            throw new System.NotImplementedException();
+            _productRespository = productRespository;
+            _statusRepository = statusRepository;
+        }
+        public async Task<(bool, string)> ChangeStatusAsync(int productId, int statusId)
+        {
+            var product = await _productRespository.GetById(productId);
+            var status = await _statusRepository.GetById(statusId);
+            if (product != null)
+            {
+                if (status != null)
+                {
+                    product.StatusId = statusId;
+                    _productRespository.Update(product);
+                    await _productRespository.SaveAsync();
+                    return (true, "Status updated successfully");
+                }
+                return (false, "Invalid status provided");
+            }
+            return (false, "No product found");
         }
 
-        public int GetCountAsync(string statusId)
+        public (bool, int) GetCount(int statusId)
         {
-            throw new System.NotImplementedException();
+            var count = _productRespository.Get(x => x.StatusId == statusId).Count();
+            return (true, count);
         }
 
-        public bool Sell(Product product)
+        public async Task<(bool, string)> SellAsync(int productId)
         {
-            throw new System.NotImplementedException();
+            var status = _statusRepository.GetStatusByName("sold");
+            var product = await _productRespository.GetById(productId);
+            if (product != null)
+            {
+                product.StatusId = status.Id;
+                _productRespository.Update(product);
+                await _productRespository.SaveAsync();
+                return (true, "Sold successfully");
+            }
+            return (false, "No product found");
+        }
+
+        public async Task<(bool, string)> Add(ProductVM product)
+        {
+            var productModel = Mapper.Map(product);
+            _productRespository.Insert(productModel);
+            await _productRespository.SaveAsync();
+            return (true, "Product added successfully");
         }
     }
 }

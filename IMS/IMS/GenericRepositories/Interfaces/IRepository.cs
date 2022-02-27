@@ -7,6 +7,7 @@ namespace IMS.GenericRepositories.Interfaces
     {
         void Insert(T model);
         void Insert(IEnumerable<T> models);
+        void Update(T model);
         void Delete(T model);
         void Delete(int id);
         void Save();
