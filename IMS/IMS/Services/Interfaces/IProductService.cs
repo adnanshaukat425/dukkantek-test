@@ -1,6 +1,6 @@
 ﻿using Models.Models;
 using System.Threading.Tasks;
-using ViewModels.ViewModels;
+using IMS.ViewModels;
 
 namespace IMS.Services.Interfaces
 {

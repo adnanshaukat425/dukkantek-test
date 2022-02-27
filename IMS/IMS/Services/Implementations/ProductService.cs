@@ -4,15 +4,15 @@ using IMS.Services.Interfaces;
 using Models.Models;
 using System.Linq;
 using System.Threading.Tasks;
-using ViewModels.ViewModels;
+using IMS.ViewModels;
 
 namespace IMS.Services.Implementations
 {
     public class ProductService : IProductService
     {
-        private readonly IProductRespository _productRespository;
+        private readonly IProductRepository _productRespository;
         private readonly IStatusRepository _statusRepository;
-        public ProductService(IProductRespository productRespository, IStatusRepository statusRepository)
+        public ProductService(IProductRepository productRespository, IStatusRepository statusRepository)
         {
             _productRespository = productRespository;
             _statusRepository = statusRepository;

@@ -15,8 +15,8 @@ namespace Models.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime Updated { get; set; }
 
-        [Timestamp]
-        public byte[] Timestamp { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public DateTime Created { get; set; }
         public virtual Product Product { get; set; }
     }
 }

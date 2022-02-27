@@ -1,11 +1,12 @@
-﻿using System;
+﻿using IMS.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ViewModels.ViewModels
+namespace IMS.ViewModels
 {
     public class ProductVM
     {
@@ -24,13 +25,15 @@ namespace ViewModels.ViewModels
         public string Weight { get; set; }
 
         [Required]
+        [ValidateStatus]
         public int StatusId { get; set; }
 
         [Required]
+        [ValidateCatagory]
         public int CatagoryId { get; set; }
 
-        public byte[] Timestamp { get; set; }
-
+        public DateTime Created { get; set; }
+        
         public DateTime Updated { get; set; }
     }
 }

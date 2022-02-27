@@ -4,7 +4,7 @@ using IMS.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
-using ViewModels.ViewModels;
+using IMS.ViewModels;
 
 namespace IMS.Controllers
 {

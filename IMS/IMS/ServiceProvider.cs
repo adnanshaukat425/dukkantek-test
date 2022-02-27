@@ -5,6 +5,8 @@ using IMS.Services.Implementations;
 using IMS.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using IMS.Repositories.Implementations;
+using IMS.Services.Hosted;
+using IMS.Setup;
 
 namespace IMS
 {
@@ -12,10 +14,15 @@ namespace IMS
     {
         public ServiceProvider(IServiceCollection services)
         {
+            services.AddHostedService<DataSeederSetup>();
+
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddScoped<IProductRespository, ProductRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IStatusRepository, StatusRepository>();
+            services.AddScoped<ICatagoryRepository, CatagoryRepository>();
             services.AddScoped<IProductService, ProductService>();
+
+            services.AddScoped<DataSeeder>();
         }
     }
 }
