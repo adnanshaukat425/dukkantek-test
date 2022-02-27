@@ -3,7 +3,7 @@ using Models.Models;
 
 namespace IMS.Repositories.Interfaces
 {
-    public interface IProductRespository : IRepository<Product>
+    public interface IProductRepository : IRepository<Product>
     {
     }
 }

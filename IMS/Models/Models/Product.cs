@@ -28,8 +28,8 @@ namespace Models.Models
         [Required]
         public int CatagoryId { get; set; }
 
-        [Timestamp]
-        public byte[] Timestamp { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public DateTime Created { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime Updated { get; set; }

@@ -6,7 +6,7 @@ using Models.SQL;
 
 namespace IMS.Repositories.Implementations
 {
-    public class ProductRepository : Repository<Product>, IProductRespository
+    public class ProductRepository : Repository<Product>, IProductRepository
     {
         public ApplicationSQLDBContext _dbContext { get; }
 

@@ -1,5 +1,5 @@
 ﻿using Models.Models;
-using ViewModels.ViewModels;
+using IMS.ViewModels;
 
 namespace IMS.Mappers
 {
@@ -15,7 +15,7 @@ namespace IMS.Mappers
                 Name = source.Name,
                 StatusId = source.StatusId,
                 //Timestamp = source.Timestamp,
-                //Updated = source.Updated,
+                Updated = System.DateTime.Now,
                 Weight = source.Weight,
             };
             return destination;
@@ -30,7 +30,7 @@ namespace IMS.Mappers
                 Id = source.Id,
                 Name = source.Name,
                 StatusId = source.StatusId,
-                Timestamp = source.Timestamp,
+                Created = source.Created,
                 Updated = source.Updated,
                 Weight = source.Weight,
             };

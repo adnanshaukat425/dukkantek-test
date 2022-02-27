@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ViewModels.ViewModels
+namespace IMS.ViewModels
 {
     public class CatagoryVM
     {

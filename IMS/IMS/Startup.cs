@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Models.SQL;
 using Microsoft.EntityFrameworkCore;
+using IMS.Pocos;
 
 namespace IMS
 {
@@ -28,6 +29,10 @@ namespace IMS
             });
             services.AddDbContext<ApplicationSQLDBContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("Models")));
+
+            SeedData seedData = Configuration.GetSection("SeedData").Get<SeedData>();
+            services.AddSingleton<SeedData>(seedData);
+
             ServiceProvider serviceProvider = new ServiceProvider(services);
         }
 
@@ -46,7 +51,7 @@ namespace IMS
             app.UseRouting();
 
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
